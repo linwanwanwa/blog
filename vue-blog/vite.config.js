@@ -4,6 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/blog/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
