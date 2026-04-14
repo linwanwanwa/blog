@@ -2,9 +2,10 @@
   <section class="section" id="projects">
     <h2 class="section-title">我的项目</h2>
     <div class="projects-list">
-      <div 
+      <router-link 
         v-for="(project, index) in projects" 
         :key="project.id" 
+        :to="project.link"
         class="project-item"
         :style="{ animationDelay: `${index * 0.1}s` }"
       >
@@ -13,15 +14,15 @@
           <span class="project-desc">{{ project.description }}</span>
         </div>
         <span class="project-arrow">→</span>
-      </div>
+      </router-link>
     </div>
   </section>
 </template>
 
 <script setup>
 const projects = [
-  { id: 1, title: '个人博客', description: 'Vue 3 博客网站' },
-  { id: 2, title: '移动应用', description: '开发中' }
+  { id: 1, title: '个人博客', description: 'Vue 3 博客网站', link: '/' },
+  { id: 2, title: '深海大作战', description: '双人网页版大鱼吃小鱼', link: '/game' }
 ]
 </script>
 
@@ -110,6 +111,10 @@ const projects = [
 
 .project-item:hover {
   background: var(--bg-secondary);
+}
+
+.project-item {
+  text-decoration: none;
 }
 
 .project-item:hover .project-title {

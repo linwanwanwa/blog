@@ -22,6 +22,9 @@
       <router-link to="/#blog" @click="closeMenu" class="nav-link">
         <span>博客</span>
       </router-link>
+      <router-link to="/game" @click="closeMenu" class="nav-link">
+        <span>游戏</span>
+      </router-link>
       <router-link to="/profile" @click="closeMenu" class="nav-link">
         <span>关于</span>
       </router-link>
