@@ -2,6 +2,7 @@
   <div class="home-view">
     <HeroSection />
     <div class="container">
+      <HotNewsSection />
       <ProjectsSection />
       <BlogSection />
       <ContactSection />
@@ -24,6 +25,7 @@
 
 <script setup>
 import HeroSection from '../components/HeroSection.vue'
+import HotNewsSection from '../components/HotNewsSection.vue'
 import ProjectsSection from '../components/ProjectsSection.vue'
 import BlogSection from '../components/BlogSection.vue'
 import ContactSection from '../components/ContactSection.vue'

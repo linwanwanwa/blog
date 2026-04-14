@@ -8,6 +8,7 @@
     </button>
     <div class="nav-links" :class="{ active: isMenuOpen }">
       <router-link to="/" @click="closeMenu">首页</router-link>
+      <router-link to="/#hot" @click="closeMenu">热搜</router-link>
       <router-link to="/#projects" @click="closeMenu">项目</router-link>
       <router-link to="/#blog" @click="closeMenu">博客</router-link>
       <router-link to="/profile" @click="closeMenu">关于</router-link>
