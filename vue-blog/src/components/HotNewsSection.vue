@@ -1,48 +1,48 @@
 <template>
   <section class="hot-section" id="hot">
-    <h2 class="section-title">🔥 今日热搜</h2>
+    <h2 class="section-title">
+      <span class="title-text">快捷入口</span>
+      <span class="title-dot"></span>
+    </h2>
     <div class="hot-list">
-      <a v-for="(item, index) in hotList" :key="index" 
-         :href="item.url" target="_blank"
-         class="hot-item">
-        <span class="hot-rank" :class="{ top: index < 3 }">{{ index + 1 }}</span>
-        <span class="hot-title">{{ item.title }}</span>
-        <span class="hot-heat" v-if="item.heat">{{ item.heat }}</span>
+      <a 
+        v-for="(item, index) in hotList" 
+        :key="item.title" 
+        :href="item.url" 
+        target="_blank"
+        class="hot-item"
+        :style="{ animationDelay: `${index * 0.15}s` }"
+      >
+        <span class="hot-content">
+          <span class="hot-icon">
+            <svg v-if="index === 0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </span>
+          <span class="hot-title">{{ item.title }}</span>
+        </span>
+        <span class="hot-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
       </a>
     </div>
-    <p class="hot-time">更新时间: {{ updateTime }}</p>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-
-const hotList = ref([])
-const updateTime = ref('')
-
-const fetchHotNews = async () => {
-  try {
-    const response = await fetch('https://weibo-hot-search-api.com/api/hot-day?date=' + new Date().toISOString().split('T')[0])
-    const data = await response.json()
-    if (data.data) {
-      hotList.value = data.data.slice(0, 10).map(item => ({
-        title: item.word || item.topic,
-        url: item.url || `https://s.weibo.com/weibo?q=${encodeURIComponent(item.word || item.topic)}`,
-        heat: item.hot_value || ''
-      }))
-    }
-  } catch (error) {
-    hotList.value = [
-      { title: '微博热搜API暂时不可用', url: '#', heat: '' },
-      { title: '请刷新页面重试', url: '#', heat: '' }
-    ]
-  }
-  updateTime.value = new Date().toLocaleString('zh-CN')
-}
-
-onMounted(() => {
-  fetchHotNews()
-})
+const hotList = [
+  { title: '微博热搜', url: 'https://s.weibo.com/top/summary' },
+  { title: '百度热搜', url: 'https://top.baidu.com/board?tab=realtime' }
+]
 </script>
 
 <style scoped>
@@ -51,83 +51,113 @@ onMounted(() => {
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 24px;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
 }
 
 .hot-list {
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 16px;
   overflow: hidden;
 }
 
+[data-theme="dark"] .hot-list {
+  background: rgba(30, 30, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .hot-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
   padding: 16px 20px;
   text-decoration: none;
   border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.2s;
+  opacity: 0;
+  animation: slideIn 0.5s ease forwards;
+  transition: all 0.3s ease;
+}
+
+.hot-item:first-child {
+  border-radius: 16px 16px 0 0;
 }
 
 .hot-item:last-child {
   border-bottom: none;
+  border-radius: 0 0 16px 16px;
 }
 
-.hot-item:hover {
-  background-color: rgba(0, 0, 0, 0.02);
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-[data-theme="dark"] .hot-item:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+.hot-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.hot-rank {
-  font-size: 1rem;
-  font-weight: 600;
+.hot-icon {
   color: var(--text-secondary);
-  min-width: 24px;
-  text-align: center;
-}
-
-.hot-rank.top {
-  color: #ff6b6b;
+  opacity: 0.6;
+  transition: all 0.3s ease;
 }
 
 .hot-title {
-  flex: 1;
   font-size: 0.95rem;
   color: var(--text-primary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  transition: color 0.3s ease;
 }
 
-.hot-heat {
-  font-size: 0.8rem;
+.hot-arrow {
   color: var(--text-secondary);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.hot-item:hover {
+  background: var(--bg-secondary);
+}
+
+.hot-item:hover .hot-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.hot-item:hover .hot-title {
   opacity: 0.7;
 }
 
-.hot-time {
-  margin-top: 16px;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  text-align: right;
-  opacity: 0.6;
-}
-
-@media (max-width: 768px) {
-  .hot-item {
-    padding: 14px 16px;
-    gap: 12px;
-  }
-  
-  .hot-title {
-    font-size: 0.9rem;
-  }
+.hot-item:hover .hot-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 </style>

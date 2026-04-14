@@ -2,12 +2,19 @@
   <section class="section" id="blog">
     <h2 class="section-title">我的博客</h2>
     <ul class="blog-list">
-      <li v-for="post in blogPosts" :key="post.id" class="blog-item">
-        <h3 class="blog-title">
-          <router-link :to="post.link">{{ post.title }}</router-link>
-        </h3>
-        <p class="blog-meta">{{ post.date }} · {{ post.category }}</p>
-        <p class="blog-excerpt">{{ post.excerpt }}</p>
+      <li 
+        v-for="(post, index) in blogPosts" 
+        :key="post.id" 
+        class="blog-item"
+        :style="{ animationDelay: `${index * 0.1}s` }"
+      >
+        <router-link :to="post.link" class="blog-link">
+          <span class="blog-content">
+            <span class="blog-title">{{ post.title }}</span>
+            <span class="blog-arrow">→</span>
+          </span>
+          <span class="blog-date">{{ post.date }}</span>
+        </router-link>
       </li>
     </ul>
   </section>
@@ -15,101 +22,105 @@
 
 <script setup>
 const blogPosts = [
-  {
-    id: 1,
-    title: '程序员保持专注的 10 个技巧',
-    date: '2024年3月1日',
-    category: '效率',
-    excerpt: '番茄工作法、关闭通知、任务分解...分享我保持高效专注的实战经验。',
-    link: '/blog/focus-tips'
-  },
-  {
-    id: 2,
-    title: '武汉周末美食之旅',
-    date: '2024年1月20日',
-    category: '旅行',
-    excerpt: '过早、宵夜、正餐...分享我在武汉的觅食清单。',
-    link: '/blog/wuhan-food'
-  },
-  {
-    id: 3,
-    title: '我的开发环境配置',
-    date: '2024年2月15日',
-    category: '技术',
-    excerpt: 'VS Code、终端、Git 配置记录，以及我常用的开发工具推荐。',
-    link: '/blog/dev-setup'
-  },
-  {
-    id: 4,
-    title: '长沙两天行程规划（最终版）',
-    date: '2024年1月1日',
-    category: '旅行',
-    excerpt: '详细的长沙两天一夜行程规划，包含景点推荐、美食攻略和交通建议。',
-    link: '/blog/changsha'
-  },
-  {
-    id: 5,
-    title: '原谅我',
-    date: '2023年12月15日',
-    category: '随笔',
-    excerpt: '个人随笔，记录生活中的感悟和思考。',
-    link: '/blog/forgive'
-  }
+  { id: 1, title: '程序员保持专注的 10 个技巧', date: '2024-03-01', link: '/blog/focus-tips' },
+  { id: 2, title: '武汉周末美食之旅', date: '2024-01-20', link: '/blog/wuhan-food' },
+  { id: 3, title: '我的开发环境配置', date: '2024-02-15', link: '/blog/dev-setup' },
+  { id: 4, title: '长沙两天行程规划', date: '2024-01-01', link: '/blog/changsha' },
+  { id: 5, title: '原谅我', date: '2023-12-15', link: '/blog/forgive' }
 ]
 </script>
 
 <style scoped>
 .section {
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   color: var(--text-primary);
 }
 
 .blog-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
 .blog-item {
-  padding: 20px 24px;
-  border-radius: 14px;
-  transition: transform 0.2s;
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
 }
 
-.blog-item:hover {
-  transform: translateX(4px);
+.blog-item:first-child {
+  border-top: 1px solid var(--border-color);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  text-decoration: none;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.blog-link:hover {
+  padding-left: 12px;
+}
+
+.blog-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .blog-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.blog-title a {
-  color: var(--text-primary);
-  text-decoration: none;
-}
-
-.blog-title a:hover {
-  color: var(--accent);
-}
-
-.blog-meta {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.blog-excerpt {
   font-size: 0.95rem;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.blog-arrow {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
   color: var(--text-secondary);
+}
+
+.blog-link:hover .blog-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.blog-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.blog-link:hover .blog-title {
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .blog-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 }
 </style>

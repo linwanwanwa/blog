@@ -4,9 +4,9 @@
     <CustomCursor />
     <TheNavbar />
     <main class="container">
-      <router-view v-slot="{ Component }">
-        <transition name="fade" mode="out-in">
-          <component :is="Component" />
+      <router-view v-slot="{ Component, route }">
+        <transition name="page" mode="out-in">
+          <component :is="Component" :key="route.path" />
         </transition>
       </router-view>
     </main>
@@ -30,13 +30,18 @@ onMounted(() => {
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.page-enter-from {
   opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 </style>
