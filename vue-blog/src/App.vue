@@ -1,5 +1,6 @@
 <template>
   <div id="app" :data-theme="themeStore.state.currentTheme">
+    <div class="app-border"></div>
     <NoiseOverlay />
     <CustomCursor />
     <TheNavbar />
@@ -30,6 +31,14 @@ onMounted(() => {
 </script>
 
 <style>
+.app-border {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 0.5px solid #000;
+  pointer-events: none;
+  z-index: 10000;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);

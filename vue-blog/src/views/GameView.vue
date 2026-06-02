@@ -342,6 +342,11 @@ function handleKeyUp(e) {
 }
 
 function startGame() {
+    if (gameLoopId) {
+        cancelAnimationFrame(gameLoopId)
+        gameLoopId = null
+    }
+    
     mode.value = selectedMode.value
     const diff = diffSettings[selectedDifficulty.value]
     
@@ -505,6 +510,10 @@ function updateUI() {
 
 function checkLevelUp() {
     if (mode.value === 'single') {
+        if (player1.size >= 300) {
+            gameOver('win')
+            return true
+        }
         if (player1.score >= 100 * game.level) {
             game.level++
             game.spawnInterval = Math.min(game.spawnInterval + 15 / game.spawnRate, 80)
@@ -513,6 +522,11 @@ function checkLevelUp() {
             return true
         }
     } else {
+        if (player1.size >= 300 || player2.size >= 300) {
+            const winner = player1.size >= 300 ? 1 : 2
+            gameOver(winner)
+            return true
+        }
         if (player1.score >= 100 * game.level || player2.score >= 100 * game.level) {
             game.level++
             game.spawnInterval = Math.min(game.spawnInterval + 15 / game.spawnRate, 80)
@@ -527,7 +541,15 @@ function gameOver(winner) {
     game.running = false
     gameState.value = 'over'
     
-    document.getElementById('winnerText').textContent = winner === 'draw' ? '平局!' : `玩家 ${winner} 获胜!`
+    if (winner === 'win') {
+        document.getElementById('winnerText').textContent = '🎉 恭喜通关!'
+    } else if (winner === 'lose') {
+        document.getElementById('winnerText').textContent = '💀 游戏失败'
+    } else if (winner === 'draw') {
+        document.getElementById('winnerText').textContent = '平局!'
+    } else {
+        document.getElementById('winnerText').textContent = `玩家 ${winner} 获胜!`
+    }
     document.getElementById('finalLevel').textContent = game.level
     
     if (mode.value === 'single') {
@@ -548,7 +570,12 @@ function backToMenu() {
 }
 
 function restartGame() {
+    if (gameLoopId) {
+        cancelAnimationFrame(gameLoopId)
+        gameLoopId = null
+    }
     document.getElementById('gameOver').style.display = 'none'
+    isPaused.value = false
     startGame()
 }
 
@@ -638,7 +665,7 @@ function update() {
                 fishes.splice(i, 1)
                 if (player1.lives <= 0) { 
                     if (mode.value === 'double') gameOver(2)
-                    else gameOver(null)
+                    else gameOver('lose')
                     return 
                 }
                 continue
@@ -686,17 +713,26 @@ function draw() {
     
     if (game.levelUpFlash > 0) {
         game.levelUpFlash--
-        ctx.fillStyle = `rgba(255, 215, 0, ${game.levelUpFlash / 120})`
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        const alpha = game.levelUpFlash / 60
+        const scale = 1 + (60 - game.levelUpFlash) * 0.01
         
         ctx.save()
-        ctx.fillStyle = `rgba(255, 215, 0, ${game.levelUpFlash / 60})`
-        ctx.font = 'bold 48px Arial'
+        ctx.globalAlpha = alpha * 0.3
+        ctx.fillStyle = '#4ecdc4'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.restore()
+        
+        ctx.save()
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
+        ctx.font = `bold ${60 * scale}px Arial`
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.8)'
-        ctx.shadowBlur = 20
-        ctx.fillText(`第 ${game.level} 关`, canvas.width / 2, canvas.height / 2)
+        ctx.shadowColor = 'rgba(78, 205, 196, 0.8)'
+        ctx.shadowBlur = 30
+        ctx.fillText('升级！', canvas.width / 2, canvas.height / 2)
+        
+        ctx.font = `bold ${24 * scale}px Arial`
+        ctx.fillText(`第 ${game.level} 关`, canvas.width / 2, canvas.height / 2 + 50)
         ctx.restore()
     }
 }

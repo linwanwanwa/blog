@@ -22,9 +22,9 @@ const routes = [
     component: () => import('../views/ChangshaView.vue')
   },
   {
-    path: '/blog/forgive',
-    name: 'Forgive',
-    component: () => import('../views/ForgiveView.vue')
+    path: '/blog/steady-haven',
+    name: 'SteadyHaven',
+    component: () => import('../views/SteadyHavenView.vue')
   },
   {
     path: '/blog/dev-setup',

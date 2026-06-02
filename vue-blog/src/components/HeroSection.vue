@@ -1,203 +1,134 @@
 <template>
-  <section class="hero-section">
-    <div class="hero-card" :class="{ visible: isVisible }">
-      <div class="avatar-wrapper">
-        <img src="/assets/images/头像.png" alt="头像" class="hero-avatar" />
-        <div class="avatar-ring"></div>
+  <section class="hero">
+    <div class="hero-bg-pattern">
+      <div class="pattern-row" v-for="i in 8" :key="i">
+        <span v-for="j in 16" :key="j" class="pattern-char">L I N W A N</span>
       </div>
-      <h1 class="hero-title">Linwan's Blog</h1>
-      <p class="hero-subtitle">全栈开发者 & 技术爱好者</p>
-      <p class="hero-description">
-        热爱编程，喜欢探索新技术。专注于 Web 开发，擅长前端和后端技术。
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">HELLO, I'M LINWAN</h1>
+      <p class="hero-subtitle">
+        全栈开发者 · 技术探索者 · 终身学习者
       </p>
-      <div class="cta-buttons">
-        <a href="#projects" class="btn">
-          <span>浏览项目</span>
-          <div class="btn-ripple"></div>
-        </a>
-        <router-link to="/profile" class="btn btn-outline">关于我</router-link>
+      <div class="hero-actions">
+        <a href="#projects" class="hero-btn">View Projects</a>
+        <router-link to="/profile" class="hero-btn secondary">About Me</router-link>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const isVisible = ref(false)
-
-onMounted(() => {
-  setTimeout(() => {
-    isVisible.value = true
-  }, 100)
-})
-</script>
-
 <style scoped>
-.hero-section {
-  padding: 80px 20px 40px;
-}
-
-.hero-card {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 60px 40px;
-  border-radius: 24px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hero-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-[data-theme="dark"] .hero-card {
-  background: rgba(30, 30, 30, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.avatar-wrapper {
-  margin-bottom: 24px;
+.hero {
   position: relative;
-  display: inline-block;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-primary);
 }
 
-.hero-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(0, 0, 0, 0.08);
+.hero-bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pattern-row {
+  white-space: nowrap;
+  opacity: 0.04;
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .pattern-row {
+  opacity: 0.03;
+}
+
+.hero-content {
   position: relative;
   z-index: 1;
-  transition: transform 0.3s ease;
+  text-align: center;
+  padding: 40px;
+  animation: fadeUp 1s ease;
 }
 
-.avatar-wrapper:hover .hero-avatar {
-  transform: scale(1.05);
-}
-
-.avatar-ring {
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border-radius: 50%;
-  border: 1px dashed var(--border-color);
-  opacity: 0;
-  animation: spin 20s linear infinite;
-  transition: opacity 0.3s ease;
-}
-
-.avatar-wrapper:hover .avatar-ring {
-  opacity: 1;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
+  font-size: clamp(36px, 8vw, 80px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-subtitle {
-  font-size: 1rem;
+  font-size: clamp(16px, 2.5vw, 20px);
   color: var(--text-secondary);
-  margin-bottom: 20px;
+  font-weight: 400;
+  margin-bottom: 48px;
+  letter-spacing: 1px;
 }
 
-.hero-description {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-buttons {
+.hero-actions {
   display: flex;
+  gap: 16px;
   justify-content: center;
-  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.btn {
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-size: 0.9rem;
+.hero-btn {
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 500;
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  position: relative;
-  overflow: hidden;
   transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
 }
 
-.btn span {
-  position: relative;
-  z-index: 1;
-}
-
-.btn:hover {
+.hero-btn:hover {
+  background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(240, 136, 62, 0.3);
 }
 
-.btn:active {
-  transform: translateY(0);
-}
-
-.btn-ripple {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
-}
-
-.btn:hover .btn-ripple {
-  width: 300px;
-  height: 300px;
-}
-
-.btn-outline {
+.hero-btn.secondary {
   background: transparent;
-  color: var(--text-primary);
   border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
-.btn-outline:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  border-color: var(--text-primary);
+.hero-btn.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
-  .hero-card {
-    padding: 40px 24px;
-  }
-  
-  .hero-title {
-    font-size: 1.8rem;
+  .hero {
+    min-height: 80vh;
   }
 }
 </style>
