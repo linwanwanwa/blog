@@ -7,27 +7,38 @@
     <main class="container">
       <router-view v-slot="{ Component, route }">
         <transition name="page" mode="out-in">
-          <component :is="Component" :key="route.path" />
-        </transition>
-      </router-view>
+      <component :is="Component" :key="route.path" />
+      </transition>
+    </router-view>
     </main>
     <TheFooter />
+    <AuthModal />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
 import TheNavbar from './components/TheNavbar.vue'
 import TheFooter from './components/TheFooter.vue'
 import NoiseOverlay from './components/NoiseOverlay.vue'
 import CustomCursor from './components/CustomCursor.vue'
+import AuthModal from './components/AuthModal.vue'
 import { useThemeStore } from './stores/theme'
+import { initAuth } from './stores/auth'
+import { refreshBusuanzi } from './composables/useBusuanzi'
 
 const themeStore = useThemeStore()
+const route = useRoute()
 
-onMounted(() => {
-  themeStore.initTheme()
-})
+initAuth()
+
+// 路由切换后重新统计一次当前页面（SPA 不会自动触发第三方统计脚本）
+watch(
+  () => route.fullPath,
+  () => setTimeout(refreshBusuanzi, 80),
+  { immediate: true }
+)
 </script>
 
 <style>

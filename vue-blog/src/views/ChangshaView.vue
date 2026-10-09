@@ -4,6 +4,8 @@
       <router-link to="/" class="home-btn">← 返回主页</router-link>
       <h1>长沙两日游行程（网红打卡+人文风光）</h1>
       <p>地铁优先 · 步行衔接 · 离线可用 · 宽松不赶场</p>
+      <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
+      <LikeButton slug="changsha" />
     </div>
 
     <div class="menu-bar">
@@ -143,6 +145,7 @@
 </template>
 
 <script setup>
+import LikeButton from '../components/LikeButton.vue'
 import { ref } from 'vue'
 const activeDay = ref('day1')
 </script>

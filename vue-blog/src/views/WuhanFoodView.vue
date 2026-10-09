@@ -4,6 +4,8 @@
       <h1>武汉周末美食之旅</h1>
       <div class="article-meta">
         <span>2024年1月20日</span>
+        <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
+      <LikeButton slug="wuhan-food" />
         <span>旅行</span>
       </div>
       
@@ -84,6 +86,10 @@
     </article>
   </div>
 </template>
+
+<script setup>
+import LikeButton from '../components/LikeButton.vue'
+</script>
 
 <style scoped>
 .article-view {

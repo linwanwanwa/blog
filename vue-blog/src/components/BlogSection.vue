@@ -22,11 +22,11 @@
 
 <script setup>
 const blogPosts = [
-  { id: 1, title: 'SteadyHaven 稳港 — 极简饮食记录 iOS App', date: '2024-04-15', link: '/blog/steady-haven' },
-  { id: 2, title: '程序员保持专注的 10 个技巧', date: '2024-03-01', link: '/blog/focus-tips' },
-  { id: 3, title: '我的开发环境配置', date: '2024-02-15', link: '/blog/dev-setup' },
-  { id: 4, title: '武汉周末美食之旅', date: '2024-01-20', link: '/blog/wuhan-food' },
-  { id: 5, title: '长沙两天行程规划', date: '2024-01-01', link: '/blog/changsha' }
+  { id: 1, title: 'SteadyHaven 稳港 — 极简饮食记录 iOS App', date: '2024-04-15', link: '/steady-haven' },
+  { id: 2, title: '程序员保持专注的 10 个技巧', date: '2024-03-01', link: '/focus-tips' },
+  { id: 3, title: '我的开发环境配置', date: '2024-02-15', link: '/dev-setup' },
+  { id: 4, title: '武汉周末美食之旅', date: '2024-01-20', link: '/wuhan-food' },
+  { id: 5, title: '长沙两天行程规划', date: '2024-01-01', link: '/changsha' }
 ]
 </script>
 

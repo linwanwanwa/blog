@@ -314,6 +314,38 @@ a, button {
   margin-bottom: 20px;
 }
 
+.footer-stats {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.footer-stats .dot {
+  margin: 0 8px;
+  opacity: 0.4;
+}
+
+.footer-stats b {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.post-date {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-right: 14px;
+}
+
+.post-views {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.post-views b {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 .footer-links a {
   color: var(--text-secondary);
   text-decoration: none;

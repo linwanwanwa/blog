@@ -16,6 +16,23 @@ npm install
 npm run dev
 ```
 
+## 部署（GitHub Pages）
+
+仓库根目录的 `index.html` + `assets/` 就是线上产物，由 `vue-blog/dist` 手动同步而来；`vue-blog/dist` 本身已被 `.gitignore` 排除。更新线上站点的步骤：
+
+```bash
+cd vue-blog
+npm run build          # 产物在 vue-blog/dist
+
+cd ..
+cp vue-blog/dist/index.html ./index.html
+cp vue-blog/dist/index.html ./404.html   # SPA 深链刷新用，必须与 index.html 同步更新
+rsync -a --delete vue-blog/dist/assets/ ./assets/   # 自动清掉上一版的旧文件
+git add -A && git commit -m "Update build" && git push
+```
+
+注意：`404.html` 必须与 `index.html` 完全一致且同步更新，否则文章页刷新会 404。
+
 ## 项目结构
 
 ```

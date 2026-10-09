@@ -4,6 +4,8 @@
       <span class="post-category">Project</span>
       <h1>SteadyHaven 稳港 — 极简饮食记录 iOS App</h1>
       <time class="post-date">2024-04-15</time>
+      <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
+      <LikeButton slug="steady-haven" />
     </div>
 
     <div class="post-body">
@@ -40,6 +42,10 @@
     </div>
   </article>
 </template>
+
+<script setup>
+import LikeButton from '../components/LikeButton.vue'
+</script>
 
 <style scoped>
 .blog-post {

@@ -23,7 +23,7 @@
 <script setup>
 const projects = [
   { id: 1, title: '深海大作战', description: '双人网页版大鱼吃小鱼游戏', link: '/game' },
-  { id: 2, title: 'SteadyHaven 稳港', description: '极简饮食记录 iOS App · SwiftUI', link: '/blog/steady-haven' },
+  { id: 2, title: 'SteadyHaven 稳港', description: '极简饮食记录 iOS App · SwiftUI', link: '/steady-haven' },
   { id: 3, title: '个人博客', description: 'Vue 3 博客网站，MiMo 风格设计', link: '/' },
   { id: 4, title: '移动应用', description: '开发中', link: '/' }
 ]

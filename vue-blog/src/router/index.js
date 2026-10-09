@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// 首页是入口，静态引入：慢网下省掉一次"加载主包 → 再请求首页 chunk"的串行往返
+import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/HomeView.vue')
+    component: HomeView
   },
   {
     path: '/game',
@@ -12,32 +14,37 @@ const routes = [
     component: () => import('../views/GameView.vue')
   },
   {
+    path: '/guestbook',
+    name: 'Guestbook',
+    component: () => import('../views/GuestbookView.vue')
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/ProfileView.vue')
   },
   {
-    path: '/blog/changsha',
+    path: '/changsha',
     name: 'Changsha',
     component: () => import('../views/ChangshaView.vue')
   },
   {
-    path: '/blog/steady-haven',
+    path: '/steady-haven',
     name: 'SteadyHaven',
     component: () => import('../views/SteadyHavenView.vue')
   },
   {
-    path: '/blog/dev-setup',
+    path: '/dev-setup',
     name: 'DevSetup',
     component: () => import('../views/DevSetupView.vue')
   },
   {
-    path: '/blog/focus-tips',
+    path: '/focus-tips',
     name: 'FocusTips',
     component: () => import('../views/FocusTipsView.vue')
   },
   {
-    path: '/blog/wuhan-food',
+    path: '/wuhan-food',
     name: 'WuhanFood',
     component: () => import('../views/WuhanFoodView.vue')
   },
