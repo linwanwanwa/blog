@@ -14,6 +14,9 @@
         <p>
           SteadyHaven（稳港）是一款极简风格的饮食记录 iOS 应用。用户可以记录每日饮食，查看详细的营养成分（热量、蛋白质、碳水、脂肪、钠），浏览历史记录，管理可复用的食物模板，并支持通过相机拍照自动识别营养标签。应用完全离线，无需网络。
         </p>
+        <p class="repo-line">
+          源码开源：<a href="https://github.com/linwanwanwa/SteadyHaven" target="_blank" rel="noopener">github.com/linwanwanwa/SteadyHaven ↗</a>
+        </p>
       </section>
 
       <section>
@@ -109,5 +112,15 @@ const date = postDate('steady-haven')
 .post-body strong {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+.repo-line a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.repo-line a:hover {
+  text-decoration: underline;
 }
 </style>

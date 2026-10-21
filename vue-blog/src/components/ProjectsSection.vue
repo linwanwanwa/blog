@@ -2,30 +2,44 @@
   <section class="section" id="projects">
     <h2 class="section-title">Projects</h2>
     <div class="row-list">
-      <router-link 
-        v-for="(project, index) in projects" 
-        :key="project.id" 
-        :to="project.link"
-        class="row-item"
-        :style="{ animationDelay: `${index * 0.1}s` }"
-      >
-        <span class="row-index">{{ String(index + 1).padStart(2, '0') }}</span>
-        <div class="row-info">
-          <h3>{{ project.title }}</h3>
-          <p>{{ project.description }}</p>
-        </div>
-        <span class="row-arrow">→</span>
-      </router-link>
+      <template v-for="(project, index) in projects" :key="project.id">
+        <!-- 有 link 的走站内路由（博客详情页），只有 href 的直出 GitHub 仓库 -->
+        <router-link
+          v-if="project.link"
+          :to="project.link"
+          class="row-item"
+          :style="{ animationDelay: `${index * 0.1}s` }"
+        >
+          <span class="row-index">{{ String(index + 1).padStart(2, '0') }}</span>
+          <div class="row-info">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+          </div>
+          <span class="row-arrow">→</span>
+        </router-link>
+        <a
+          v-else
+          :href="project.href"
+          target="_blank"
+          rel="noopener"
+          class="row-item"
+          :style="{ animationDelay: `${index * 0.1}s` }"
+        >
+          <span class="row-index">{{ String(index + 1).padStart(2, '0') }}</span>
+          <div class="row-info">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+          </div>
+          <span class="row-arrow">↗</span>
+        </a>
+      </template>
     </div>
   </section>
 </template>
 
 <script setup>
-const projects = [
-  { id: 1, title: 'SteadyHaven 稳港', description: '极简饮食记录 iOS App · SwiftUI', link: '/steady-haven' },
-  { id: 2, title: '个人博客', description: 'Vue 3 博客网站，MiMo 风格设计', link: '/' },
-  { id: 3, title: '移动应用', description: '开发中', link: '/' }
-]
+// 清单来自 src/content/projects.js（唯一事实源），不在这里重复维护
+import { projects } from '../content/projects'
 </script>
 
 <style scoped>

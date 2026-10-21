@@ -2,14 +2,14 @@
   <section class="section">
     <h2 class="section-title">Contact</h2>
     <div class="row-list">
-      <div class="row-item">
+      <a class="row-item" href="https://github.com/linwanwanwa" target="_blank" rel="noopener">
         <span class="row-index">01</span>
         <div class="row-info">
           <h3>GitHub</h3>
           <p>linwanwanwa</p>
         </div>
-        <span class="row-arrow">→</span>
-      </div>
+        <span class="row-arrow">↗</span>
+      </a>
       <div class="row-item">
         <span class="row-index">02</span>
         <div class="row-info">

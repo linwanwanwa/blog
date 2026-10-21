@@ -12,6 +12,20 @@
 
 export const posts = [
   {
+    slug: 'config2mcp',
+    name: 'Config2Mcp',
+    title: 'config2mcp：一份 YAML，把任意命令行变成 Agent 工具',
+    date: '2026-10-22',
+    view: () => import('../views/Config2McpView.vue')
+  },
+  {
+    slug: 'eating',
+    name: 'Eating',
+    title: '《吃了么》：水果茶点单原生微信小程序',
+    date: '2026-10-22',
+    view: () => import('../views/EatingView.vue')
+  },
+  {
     slug: 'steady-haven',
     name: 'SteadyHaven',
     title: 'SteadyHaven 稳港 — 极简饮食记录 iOS App',

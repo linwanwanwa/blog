@@ -84,6 +84,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useThemeStore } from '../stores/theme'
+import { posts } from '../content/posts'
+import { projects } from '../content/projects'
 
 const themeStore = useThemeStore()
 
@@ -96,10 +98,11 @@ const line2 = ['L', 'I', 'N', 'W', 'A', 'N']
 const words = ['全栈开发者 · Vue / Node', 'iOS 开发者 · SwiftUI', '技术探索者 · 终身学习', '设计与工程的交界处']
 const wordIndex = ref(0)
 
+// 文章/项目数从各自的事实源取，新增内容不再需要手改这里的统计
 const stats = [
-  { value: 5, label: 'Articles' },
-  { value: 4, label: 'Projects' },
-  { value: 2, label: 'Platforms' }
+  { value: posts.length, label: 'Articles' },
+  { value: projects.length, label: 'Projects' },
+  { value: 3, label: 'Platforms' } // iOS · Web · 微信小程序
 ]
 const display = ref([0, 0, 0])
 const pad = (n) => String(n).padStart(2, '0')
