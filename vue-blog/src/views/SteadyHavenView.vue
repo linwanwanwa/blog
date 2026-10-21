@@ -3,7 +3,7 @@
     <div class="post-header">
       <span class="post-category">Project</span>
       <h1>SteadyHaven 稳港 — 极简饮食记录 iOS App</h1>
-      <time class="post-date">2024-04-15</time>
+      <time class="post-date">{{ date }}</time>
       <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
       <LikeButton slug="steady-haven" />
     </div>
@@ -45,6 +45,8 @@
 
 <script setup>
 import LikeButton from '../components/LikeButton.vue'
+import { postDate } from '../content/posts'
+const date = postDate('steady-haven')
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     <article class="article-content">
       <h1>武汉周末美食之旅</h1>
       <div class="article-meta">
-        <span>2024年1月20日</span>
+        <span>{{ date }}</span>
         <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
       <LikeButton slug="wuhan-food" />
         <span>旅行</span>
@@ -89,6 +89,8 @@
 
 <script setup>
 import LikeButton from '../components/LikeButton.vue'
+import { postDateCN } from '../content/posts'
+const date = postDateCN('wuhan-food')
 </script>
 
 <style scoped>

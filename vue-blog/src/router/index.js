@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // 首页是入口，静态引入：慢网下省掉一次"加载主包 → 再请求首页 chunk"的串行往返
 import HomeView from '../views/HomeView.vue'
+// 文章路由由 src/content/posts.js 这份唯一清单生成，不再逐篇手写
+import { postRoutes } from '../content/posts'
 
 const routes = [
   {
@@ -8,11 +10,7 @@ const routes = [
     name: 'Home',
     component: HomeView
   },
-  {
-    path: '/game',
-    name: 'Game',
-    component: () => import('../views/GameView.vue')
-  },
+  ...postRoutes,
   {
     path: '/guestbook',
     name: 'Guestbook',
@@ -22,31 +20,6 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/ProfileView.vue')
-  },
-  {
-    path: '/changsha',
-    name: 'Changsha',
-    component: () => import('../views/ChangshaView.vue')
-  },
-  {
-    path: '/steady-haven',
-    name: 'SteadyHaven',
-    component: () => import('../views/SteadyHavenView.vue')
-  },
-  {
-    path: '/dev-setup',
-    name: 'DevSetup',
-    component: () => import('../views/DevSetupView.vue')
-  },
-  {
-    path: '/focus-tips',
-    name: 'FocusTips',
-    component: () => import('../views/FocusTipsView.vue')
-  },
-  {
-    path: '/wuhan-food',
-    name: 'WuhanFood',
-    component: () => import('../views/WuhanFoodView.vue')
   },
   {
     path: '/:pathMatch(.*)*',

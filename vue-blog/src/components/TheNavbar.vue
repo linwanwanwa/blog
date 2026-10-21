@@ -25,9 +25,6 @@
       <router-link to="/guestbook" @click="closeMenu" class="nav-link">
         <span>Guestbook</span>
       </router-link>
-      <router-link to="/game" @click="closeMenu" class="nav-link">
-        <span>Game</span>
-      </router-link>
       <button class="nav-auth" @click="onAuthClick" :title="authTip">
         <svg v-if="!auth.user" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>

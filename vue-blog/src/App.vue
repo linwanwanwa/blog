@@ -25,13 +25,12 @@ import NoiseOverlay from './components/NoiseOverlay.vue'
 import CustomCursor from './components/CustomCursor.vue'
 import AuthModal from './components/AuthModal.vue'
 import { useThemeStore } from './stores/theme'
-import { initAuth } from './stores/auth'
 import { refreshBusuanzi } from './composables/useBusuanzi'
 
 const themeStore = useThemeStore()
 const route = useRoute()
 
-initAuth()
+// 会话检查（initAuth）已挪到 main.js 的空闲回调里，避免云 SDK chunk 抢首屏带宽
 
 // 路由切换后重新统计一次当前页面（SPA 不会自动触发第三方统计脚本）
 watch(

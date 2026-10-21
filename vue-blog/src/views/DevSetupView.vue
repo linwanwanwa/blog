@@ -3,7 +3,7 @@
     <article class="article-content">
       <h1>我的开发环境配置</h1>
       <div class="article-meta">
-        <span>2024年2月15日</span>
+        <span>{{ date }}</span>
         <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
       <LikeButton slug="dev-setup" />
         <span>技术</span>
@@ -78,6 +78,8 @@ chore: 构建/工具</code></pre>
 
 <script setup>
 import LikeButton from '../components/LikeButton.vue'
+import { postDateCN } from '../content/posts'
+const date = postDateCN('dev-setup')
 </script>
 
 <style scoped>

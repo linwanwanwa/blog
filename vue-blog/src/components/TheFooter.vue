@@ -3,11 +3,10 @@
     <div class="footer-content">
       <div class="footer-links">
         <router-link to="/">Home</router-link>
-        <a href="/#blog">Blog</a>
-        <a href="/#projects">Projects</a>
+        <router-link to="/#blog">Blog</router-link>
+        <router-link to="/#projects">Projects</router-link>
         <router-link to="/profile">About</router-link>
         <router-link to="/guestbook">Guestbook</router-link>
-        <router-link to="/game">Game</router-link>
       </div>
       <p class="footer-stats">
         <span id="busuanzi_container_site_pv">

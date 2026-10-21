@@ -14,7 +14,7 @@
         <span class="row-index">02</span>
         <div class="row-info">
           <h3>Email</h3>
-          <p>linwan@example.com</p>
+          <p>1793004324@qq.com</p>
         </div>
         <span class="row-arrow">→</span>
       </div>

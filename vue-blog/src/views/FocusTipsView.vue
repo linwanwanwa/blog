@@ -3,7 +3,7 @@
     <article class="article-content">
       <h1>程序员保持专注的 10 个技巧</h1>
       <div class="article-meta">
-        <span>2024年3月1日</span>
+        <span>{{ date }}</span>
         <span class="post-views" id="busuanzi_container_page_pv">阅读 <b id="busuanzi_value_page_pv">–</b></span>
       <LikeButton slug="focus-tips" />
         <span>效率</span>
@@ -69,6 +69,8 @@
 
 <script setup>
 import LikeButton from '../components/LikeButton.vue'
+import { postDateCN } from '../content/posts'
+const date = postDateCN('focus-tips')
 </script>
 
 <style scoped>

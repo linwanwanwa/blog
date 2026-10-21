@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+# 推送到 main 即构建并部署，替代 README 里那套手工 cp/rsync + 「404.html 必须与 index.html 同步」的人肉约束。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只跑一个部署；进行中的部署不被新推送打断
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: vue-blog/package-lock.json
+
+      - name: Install dependencies
+        working-directory: vue-blog
+        run: npm ci
+
+      - name: Build (vite + inline-css)
+        working-directory: vue-blog
+        run: npm run build
+
+      - name: Assemble Pages artifact
+        run: |
+          mkdir -p _site
+          cp vue-blog/dist/index.html _site/index.html
+          # 404.html 由同一次构建直接复制：物理上保证与 index.html 一致，杜绝深链刷新 404
+          cp vue-blog/dist/index.html _site/404.html
+          cp -r vue-blog/dist/assets _site/assets
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
